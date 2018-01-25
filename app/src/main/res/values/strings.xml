@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Book Listing</string>
+    <string name="don_quixote">Don Quixote</string>
+    <string name="a_tale_of_two_cities">A Tale of Two Cities</string>
+    <string name="the_lord_of_the_rings">The Lord of the Rings</string>
+    <string name="the_little_prince">The Little Prince</string>
+    <string name="harry_potter">Harry Potter</string>
+</resources>

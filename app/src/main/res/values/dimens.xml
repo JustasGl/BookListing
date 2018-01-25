@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="imageWidth">150dp</dimen>
+    <dimen name="imageHeight">250dp</dimen>
+    <dimen name="MarginLeft">16dp</dimen>
+    <dimen name="MarginEnd">14dp</dimen>
+    <dimen name="MarginTop">124dp</dimen>
+    <dimen name="MarginTopSmall">32dp</dimen>
+    <dimen name="paddingbottom">8dp</dimen>
+    <dimen name="marginLeft">16dp</dimen>
+    <dimen name="marginTopVerySmall">8dp</dimen>
+    <dimen name="largeText">32sp</dimen>
+    <dimen name="searchimage">40dp</dimen>
+    <dimen name="weighted">0dp</dimen>
+    <dimen name="margin">8dp</dimen>
+</resources>
