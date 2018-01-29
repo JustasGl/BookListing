@@ -36,7 +36,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
     View loadingIndicator;
     ImageView pirmas,antras,trecias,ketvirtas,penktas;
     AdaptorEditor mAdapter;
-    LinearLayout listlayout,searchlayout;
+    LinearLayout listlayout;
     private int LoaderID = 1;
     Button search;
     EditText ed;
@@ -50,7 +50,6 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         trecias = findViewById(R.id.trecias);
         ketvirtas = findViewById(R.id.ketvirtas);
         penktas = findViewById(R.id.penktas);
-        searchlayout=findViewById(R.id.searchlayout);
 
         final ListView earthquakeListView =findViewById(R.id.listview);
         listlayout = findViewById(R.id.linearlistlayout);
