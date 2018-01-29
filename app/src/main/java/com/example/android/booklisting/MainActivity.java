@@ -5,21 +5,26 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +36,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
     View loadingIndicator;
     ImageView pirmas,antras,trecias,ketvirtas,penktas;
     AdaptorEditor mAdapter;
-    LinearLayout listlayout;
-    int i=0;
+    LinearLayout listlayout,searchlayout;
     private int LoaderID = 1;
     Button search;
     EditText ed;
@@ -46,6 +50,9 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         trecias = findViewById(R.id.trecias);
         ketvirtas = findViewById(R.id.ketvirtas);
         penktas = findViewById(R.id.penktas);
+        searchlayout=findViewById(R.id.searchlayout);
+
+        final ListView earthquakeListView =findViewById(R.id.listview);
         listlayout = findViewById(R.id.linearlistlayout);
         pirmas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,14 +94,13 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
                 startActivity(i);
             }
         });
-        ListView earthquakeListView = (ListView) findViewById(R.id.listview);
-        mEmptyStateTextView = (TextView) findViewById(R.id.emptyview);
+
+        mEmptyStateTextView =findViewById(R.id.emptyview);
         loadingIndicator = findViewById(R.id.progress);
         earthquakeListView.setEmptyView(mEmptyStateTextView);
-        // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new AdaptorEditor(this, new ArrayList<knyga>());
         earthquakeListView.setAdapter(mAdapter);
-       ed =findViewById(R.id.rinkiklis);
+        ed =findViewById(R.id.rinkiklis);
         search =findViewById(R.id.searchButton);
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -106,27 +112,27 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
                 mEmptyStateTextView.setText("");
 
                 URL = "https://www.googleapis.com/books/v1/volumes?q=" + ed.getText().toString();
-                Log.i("", "1 url "+URL);
-               if(!"https://www.googleapis.com/books/v1/volumes?q=".equals(URL) && networkInfo != null && networkInfo.isConnected() && !url1.equals(URL))
+               if(networkInfo != null && networkInfo.isConnected() && !url1.equals(URL))
                {
-
                    url1=URL;
                    RelativeLayout mostpopular = findViewById(R.id.mostpopular);
                    mostpopular.setVisibility(View.GONE);
                    listlayout.setVisibility(View.VISIBLE);
-                   Log.i("", "caller");
-                   Log.i("", "2url "+URL);
                    loadingIndicator.setVisibility(View.VISIBLE);
+
                 caller();
+                   LoaderID++;
+                   Log.i("","1 if");
                }
                else if ("https://www.googleapis.com/books/v1/volumes?q=".equals(URL)){
                    Toast.makeText(MainActivity.this, "Įrašykite tekstą į paiešką", Toast.LENGTH_SHORT).show();
+                   Log.i("","2 if");
                }
 
                else {
                    mEmptyStateTextView.setText("No internet connection");
+                   Log.i("","3 if");
                }
-                LoaderID++;
             }
         });
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -138,23 +144,19 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
                 startActivity(websiteIntent);
             }
         });
-
-
+        if (savedInstanceState != null) {
+            url1=URL;
+            RelativeLayout mostpopular = findViewById(R.id.mostpopular);
+            mostpopular.setVisibility(View.GONE);
+            listlayout.setVisibility(View.VISIBLE);
+            loadingIndicator.setVisibility(View.VISIBLE);
+            caller();
+            LoaderID++;
+        }
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putInt("LoaderID",LoaderID);
-        super.onSaveInstanceState(savedInstanceState);
-    }
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        LoaderID = savedInstanceState.getInt("LoaderID");
-    }
-
     @Override
     public Loader<List<knyga>> onCreateLoader(int i, Bundle bundle) {
-        // Create a new loader for the given URL
+        Log.i("",URL);
         return new BookLoader(this, URL);
     }
 
@@ -162,12 +164,8 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
     public void onLoadFinished(Loader<List<knyga>> loader, List<knyga> earthquakes) {
 
         loadingIndicator.setVisibility(View.GONE);
-        // Set empty state text to display "No earthquakes found."
         mEmptyStateTextView.setText("Knygų nerasta");
-        // Clear the adapter of previous earthquake data
         mAdapter.clear();
-        // If there is a valid list of {@link word}s, then add them to the adapter's
-        // data set. This will trigger the ListView to update.
         if (earthquakes != null && !earthquakes.isEmpty()) {
             mAdapter.addAll(earthquakes);
 
@@ -176,7 +174,6 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(Loader<List<knyga>> loader) {
-        // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
     }
     void caller()

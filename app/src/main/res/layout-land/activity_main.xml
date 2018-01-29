@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/main_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.android.booklisting.MainActivity">
+
+        <LinearLayout
+            android:id="@+id/searchlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/rinkiklis"
+                    android:layout_width="@dimen/weighted"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+                <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp">
+                <Button
+                    android:id="@+id/searchButton"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/searchimage"
+                    android:layout_weight="1"
+                    android:background="@drawable/glass"
+                    android:foreground="?attr/selectableItemBackground" /></LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchlayout"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/mostpopular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searchlayout">
+
+            <TextView
+                android:id="@+id/popular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Populiariausios knygos"
+                android:textAlignment="center"
+                android:textSize="@dimen/largeText" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/popular"
+                android:layout_marginTop="@dimen/marginTopVerySmall">
+
+                <RelativeLayout
+                    android:id="@+id/pirmaslayout"
+                    android:layout_width="@dimen/imageWidth"
+                    android:layout_height="@dimen/imageHeight"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/treciaslayout"
+                    android:layout_marginTop="@dimen/marginTopVerySmall">
+
+                    <ImageView
+                        android:id="@+id/pirmas"
+                        style="@style/image"
+                        android:src="@drawable/primas" />
+
+                    <TextView
+                        style="@style/PictureTextview"
+                        android:text="@string/don_quixote" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/antraslayout"
+                    android:layout_width="@dimen/imageWidth"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="@dimen/MarginEnd"
+                    android:layout_marginTop="@dimen/MarginTop">
+
+                    <ImageView
+                        android:id="@+id/antras"
+                        style="@style/image"
+                        android:src="@drawable/antras" />
+
+                    <TextView
+                        style="@style/PictureTextview"
+                        android:text="@string/a_tale_of_two_cities" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/treciaslayout"
+                    android:layout_width="@dimen/imageWidth"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pirmaslayout"
+                    android:layout_marginLeft="@dimen/marginLeft"
+                    android:layout_marginTop="@dimen/MarginTopSmall">
+
+                    <ImageView
+                        android:id="@+id/trecias"
+                        android:layout_width="@dimen/imageWidth"
+                        android:layout_height="@dimen/imageHeight"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/trecias" />
+
+                    <TextView
+                        style="@style/PictureTextview"
+                        android:text="@string/the_lord_of_the_rings" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="@dimen/imageWidth"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/antraslayout"
+                    android:layout_below="@+id/antraslayout"
+                    android:layout_marginTop="32dp">
+
+                    <ImageView
+                        android:id="@+id/ketvirtas"
+                        style="@style/image"
+                        android:src="@drawable/ketvirtas" />
+
+                    <TextView
+                        style="@style/PictureTextview"
+                        android:text="@string/the_little_prince" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="@dimen/imageWidth"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/treciaslayout"
+                    android:layout_below="@+id/treciaslayout"
+                    android:layout_marginTop="@dimen/MarginTopSmall"
+                    android:paddingBottom="@dimen/paddingbottom">
+
+                    <ImageView
+                        android:id="@+id/penktas"
+                        style="@style/image"
+                        android:src="@drawable/penktas" />
+
+                    <TextView
+                        style="@style/PictureTextview"
+                        android:text="@string/harry_potter" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlistlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searchlayout"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/emptyview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
