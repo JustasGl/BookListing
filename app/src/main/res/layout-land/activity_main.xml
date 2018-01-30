@@ -44,6 +44,7 @@
                 <EditText
                     android:id="@+id/rinkiklis"
                     android:layout_width="@dimen/weighted"
+                    android:hint="@string/search_for_book"
                     android:imeOptions="actionSearch"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"

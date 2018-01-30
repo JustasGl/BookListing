@@ -15,4 +15,5 @@
     <string name="nointernet">No internet connection</string>
     <string name="writedownsometext">Write some text in search</string>
     <string name="most_popular_books">Most popular books</string>
+    <string name="search_for_book">Search for book</string>
 </resources>
