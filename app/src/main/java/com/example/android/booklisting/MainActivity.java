@@ -15,7 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +53,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         ketvirtas = findViewById(R.id.ketvirtas);
         penktas = findViewById(R.id.penktas);
 
-        final ListView earthquakeListView =findViewById(R.id.listview);
+        final ListView booksListView =findViewById(R.id.listview);
         listlayout = findViewById(R.id.linearlistlayout);
         pirmas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,50 +98,34 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
 
         mEmptyStateTextView =findViewById(R.id.emptyview);
         loadingIndicator = findViewById(R.id.progress);
-        earthquakeListView.setEmptyView(mEmptyStateTextView);
+        booksListView.setEmptyView(mEmptyStateTextView);
         mAdapter = new AdaptorEditor(this, new ArrayList<knyga>());
-        earthquakeListView.setAdapter(mAdapter);
+        booksListView.setAdapter(mAdapter);
         ed =findViewById(R.id.rinkiklis);
         search =findViewById(R.id.searchButton);
-
+        ed.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    buttonclciked();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-                mEmptyStateTextView.setText("");
-
-                URL = "https://www.googleapis.com/books/v1/volumes?q=" + ed.getText().toString();
-               if(networkInfo != null && networkInfo.isConnected() && !url1.equals(URL))
-               {
-                   url1=URL;
-                   RelativeLayout mostpopular = findViewById(R.id.mostpopular);
-                   mostpopular.setVisibility(View.GONE);
-                   listlayout.setVisibility(View.VISIBLE);
-                   loadingIndicator.setVisibility(View.VISIBLE);
-
-                caller();
-                   LoaderID++;
-                   Log.i("","1 if");
-               }
-               else if ("https://www.googleapis.com/books/v1/volumes?q=".equals(URL)){
-                   Toast.makeText(MainActivity.this, "Įrašykite tekstą į paiešką", Toast.LENGTH_SHORT).show();
-                   Log.i("","2 if");
-               }
-
-               else {
-                   mEmptyStateTextView.setText("No internet connection");
-                   Log.i("","3 if");
-               }
+              buttonclciked();
             }
         });
-        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 knyga currentBook = mAdapter.getItem(position);
-                Uri earthquakeUri = Uri.parse(currentBook.getMurl());
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
+                Uri BookseUri = Uri.parse(currentBook.getMurl());
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, BookseUri);
                 startActivity(websiteIntent);
             }
         });
@@ -160,13 +146,13 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
     }
 
     @Override
-    public void onLoadFinished(Loader<List<knyga>> loader, List<knyga> earthquakes) {
+    public void onLoadFinished(Loader<List<knyga>> loader, List<knyga> books) {
 
         loadingIndicator.setVisibility(View.GONE);
         mEmptyStateTextView.setText("Knygų nerasta");
         mAdapter.clear();
-        if (earthquakes != null && !earthquakes.isEmpty()) {
-            mAdapter.addAll(earthquakes);
+        if (books != null && !books.isEmpty()) {
+            mAdapter.addAll(books);
 
         }
     }
@@ -179,5 +165,35 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
     {
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LoaderID, null, this);
+    }
+    public void buttonclciked()
+    {
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        mEmptyStateTextView.setText("");
+
+        URL = "https://www.googleapis.com/books/v1/volumes?q=" + ed.getText().toString();
+        if(networkInfo != null && networkInfo.isConnected() && !url1.equals(URL))
+        {
+            url1=URL;
+            RelativeLayout mostpopular = findViewById(R.id.mostpopular);
+            mostpopular.setVisibility(View.GONE);
+            listlayout.setVisibility(View.VISIBLE);
+            loadingIndicator.setVisibility(View.VISIBLE);
+
+            caller();
+            LoaderID++;
+            Log.i("","1 if");
+        }
+        else if ("https://www.googleapis.com/books/v1/volumes?q=".equals(URL)){
+            Toast.makeText(MainActivity.this, "Įrašykite tekstą į paiešką", Toast.LENGTH_SHORT).show();
+            Log.i("","2 if");
+        }
+
+        else {
+            mEmptyStateTextView.setText("No internet connection");
+            Log.i("","3 if");
+        }
+
     }
 }
