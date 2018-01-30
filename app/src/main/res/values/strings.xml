@@ -5,4 +5,14 @@
     <string name="the_lord_of_the_rings">The Lord of the Rings</string>
     <string name="the_little_prince">The Little Prince</string>
     <string name="harry_potter">Harry Potter</string>
+    <string name="nobooks">No books found</string>
+    <string name="harrypoter">https://en.wikipedia.org/wiki/Harry_Potter_and_the_Philosopher%27s_Stone</string>
+    <string name="littleprince">https://en.wikipedia.org/wiki/The_Little_Prince</string>
+    <string name="lordoftherings">https://en.wikipedia.org/wiki/The_Lord_of_the_Rings</string>
+    <string name="taleoftwocities">https://en.wikipedia.org/wiki/A_Tale_of_Two_Cities</string>
+    <string name="donquixote">https://en.wikipedia.org/wiki/Don_Quixote</string>
+    <string name="mainURL">https://www.googleapis.com/books/v1/volumes?q=</string>
+    <string name="nointernet">No internet connection</string>
+    <string name="writedownsometext">Write some text in search</string>
+    <string name="most_popular_books">Most popular books</string>
 </resources>

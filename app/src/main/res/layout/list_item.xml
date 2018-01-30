@@ -5,53 +5,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/margin"
         android:orientation="horizontal">
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/picsize"
+        android:layout_height="@dimen/picsize"
         android:id="@+id/paveikslelis"
         android:src="@drawable/ic_launcher_background"
         />
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/weighted"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="3">
         <TextView
             android:id="@+id/pavadinimas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Book name"
-            android:layout_marginLeft="8dp"
-            android:textSize="20dp"
-            android:layout_marginRight="8dp"/>
+            style="@style/wrap"
+            android:layout_marginLeft="@dimen/margin"
+            android:textSize="@dimen/booknamesize"
+            android:layout_marginRight="@dimen/margin"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Autorius"
+            style="@style/wrap"
             android:id="@+id/autorius"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="@dimen/margin" />
 
         </LinearLayout>
 <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    style="@style/wrap"
     android:layout_weight="0"
     android:orientation="vertical">
         <TextView
             android:id="@+id/kaina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0,99"
-            android:textSize="24dp"
+            style="@style/wrap"
+            android:textSize="@dimen/sizeofprice"
             android:layout_alignParentRight="true"/>
             <TextView
                 android:id="@+id/valiuta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrap"
                 android:layout_below="@+id/kaina"
-                android:text="valiuta"
                 android:layout_alignParentRight="true"/>
 </LinearLayout>
     </LinearLayout>

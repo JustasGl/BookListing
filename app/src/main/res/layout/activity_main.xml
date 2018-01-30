@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Populiariausios knygos"
+            android:text="@string/most_popular_books"
             android:textSize="@dimen/largeText"
             android:id="@+id/popular"
             android:textAlignment="center"/>

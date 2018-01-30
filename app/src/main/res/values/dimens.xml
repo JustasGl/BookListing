@@ -13,4 +13,7 @@
     <dimen name="searchimage">40dp</dimen>
     <dimen name="weighted">0dp</dimen>
     <dimen name="margin">8dp</dimen>
+    <dimen name="picsize">50dp</dimen>
+    <dimen name="booknamesize">20sp</dimen>
+    <dimen name="sizeofprice">24sp</dimen>
 </resources>

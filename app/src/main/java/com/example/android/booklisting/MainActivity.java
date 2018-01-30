@@ -1,5 +1,6 @@
 package com.example.android.booklisting;
 
+import android.annotation.SuppressLint;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
@@ -42,7 +43,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
     private int LoaderID = 1;
     Button search;
     EditText ed;
-    String URL="https://www.googleapis.com/books/v1/volumes?q=",url1="";
+    String URL,url1="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +53,13 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         trecias = findViewById(R.id.trecias);
         ketvirtas = findViewById(R.id.ketvirtas);
         penktas = findViewById(R.id.penktas);
-
+        URL=getString(R.string.mainURL);
         final ListView booksListView =findViewById(R.id.listview);
         listlayout = findViewById(R.id.linearlistlayout);
         pirmas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String daugiau = "https://en.wikipedia.org/wiki/Don_Quixote";
+                String daugiau = getString(R.string.donquixote);
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(daugiau));
                 startActivity(i);
             }
@@ -66,7 +67,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         antras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String daugiau = "https://en.wikipedia.org/wiki/A_Tale_of_Two_Cities";
+                String daugiau = getString(R.string.taleoftwocities);
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(daugiau));
                 startActivity(i);
             }
@@ -74,7 +75,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         trecias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String daugiau = "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings";
+                String daugiau = getString(R.string.lordoftherings);
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(daugiau));
                 startActivity(i);
             }
@@ -82,7 +83,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         ketvirtas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String daugiau = "https://en.wikipedia.org/wiki/The_Little_Prince";
+                String daugiau = getString(R.string.littleprince);
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(daugiau));
                 startActivity(i);
             }
@@ -90,7 +91,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         penktas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String daugiau = "https://en.wikipedia.org/wiki/Harry_Potter_and_the_Philosopher%27s_Stone";
+                String daugiau = getString(R.string.harrypoter);
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(daugiau));
                 startActivity(i);
             }
@@ -141,7 +142,6 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
     }
     @Override
     public Loader<List<knyga>> onCreateLoader(int i, Bundle bundle) {
-        Log.i("",URL);
         return new BookLoader(this, URL);
     }
 
@@ -149,14 +149,13 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
     public void onLoadFinished(Loader<List<knyga>> loader, List<knyga> books) {
 
         loadingIndicator.setVisibility(View.GONE);
-        mEmptyStateTextView.setText("Knygų nerasta");
+        mEmptyStateTextView.setText(R.string.nobooks);
         mAdapter.clear();
         if (books != null && !books.isEmpty()) {
             mAdapter.addAll(books);
 
         }
     }
-
     @Override
     public void onLoaderReset(Loader<List<knyga>> loader) {
         mAdapter.clear();
@@ -172,7 +171,7 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         mEmptyStateTextView.setText("");
 
-        URL = "https://www.googleapis.com/books/v1/volumes?q=" + ed.getText().toString();
+        URL = getString(R.string.mainURL) + ed.getText().toString();
         if(networkInfo != null && networkInfo.isConnected() && !url1.equals(URL))
         {
             url1=URL;
@@ -183,16 +182,13 @@ public final class MainActivity extends AppCompatActivity implements LoaderManag
 
             caller();
             LoaderID++;
-            Log.i("","1 if");
         }
-        else if ("https://www.googleapis.com/books/v1/volumes?q=".equals(URL)){
-            Toast.makeText(MainActivity.this, "Įrašykite tekstą į paiešką", Toast.LENGTH_SHORT).show();
-            Log.i("","2 if");
+        else if (getString(R.string.mainURL).equals(URL)){
+            Toast.makeText(MainActivity.this, R.string.writedownsometext, Toast.LENGTH_SHORT).show();
         }
 
         else {
-            mEmptyStateTextView.setText("No internet connection");
-            Log.i("","3 if");
+            mEmptyStateTextView.setText(R.string.nointernet);
         }
 
     }
