@@ -165,7 +165,7 @@
     </RelativeLayout>
             </LinearLayout>
         </ScrollView>
-</LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/linearlistlayout"
         android:layout_width="wrap_content"
